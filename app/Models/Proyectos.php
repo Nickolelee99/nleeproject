@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyectos extends Model
 {
+    protected $fillable = ['lider', 'nombre'];
     use HasFactory;
 }
