@@ -48,24 +48,34 @@ class ProyectosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proyectos $proyectos)
+    public function edit($id)
     {
-        //
+        $proyecto = Proyectos::find($id);
+        return view('proyecto.update', compact('proyecto'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proyectos $proyectos)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'lider' => 'required',
+        ]);
+        $proyectos = Proyectos::find($id);
+        $proyectos->update($request->all());
+        return redirect()->route('proyecto.index')->with('success','Post updated successfully');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proyectos $proyectos)
+    public function destroy($id)
     {
-        //
+        $proyectos = Proyectos::find($id);
+        $proyectos->delete();
+        return redirect()->route('proyecto.index')->with('success', 'product deleted successfully');
     }
 }
